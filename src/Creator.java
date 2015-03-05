@@ -3,7 +3,10 @@
  */
 public interface Creator<T> {
     public void createExposition();
+
     public void createAction();
+
     public void createEnding();
+
     public StringBuilder getStory(Creator<T> storyCreator);
 }

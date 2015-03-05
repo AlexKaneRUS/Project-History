@@ -5,17 +5,14 @@ import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Created by alexkane on 3/4/15.
- */
 class ThisPartCreator implements PartsCreator {
-    String partSource;
-    StringBuilder story;
-    int libraryStuff;
-    int maxSizeOfSequence;
+    final String partSource;
+    final StringBuilder story;
+    final int maxSizeOfSequence;
+    final int libraryStuff;
     String line;
 
-    public ThisPartCreator(String partSource, StringBuilder story, int maxSizeOfSequence, int libraryStuff){
+    public ThisPartCreator(final String partSource, final StringBuilder story, final int maxSizeOfSequence, final int libraryStuff) {
         this.partSource = partSource;
         this.story = story;
         this.maxSizeOfSequence = maxSizeOfSequence;
@@ -24,18 +21,17 @@ class ThisPartCreator implements PartsCreator {
 
     public void createPart() {
         try {
-            ArrayList<String> textArray = new ArrayList<String>();
-            final FileReader expositionSourceReader = new FileReader(partSource);
-            final LineNumberReader expositionSourceLineReader = new LineNumberReader(expositionSourceReader);
-            while ((line = expositionSourceLineReader.readLine()) != null){
+            final ArrayList<String> textArray = new ArrayList<String>();
+            final LineNumberReader expositionSourceLineReader = new LineNumberReader(new FileReader(partSource));
+            while ((line = expositionSourceLineReader.readLine()) != null) {
                 textArray.add(line);
             }
             expositionSourceLineReader.close();
-            Random randomNumber = new Random();
-            int numberOfLines = randomNumber.nextInt(maxSizeOfSequence) + 1;
+            final Random randomNumber = new Random();
+            final int numberOfLines = randomNumber.nextInt(maxSizeOfSequence) + 1;
             int i = 0;
             int amountOfVersions = 0;
-            while (i < numberOfLines){
+            while (i < numberOfLines) {
                 int random = randomNumber.nextInt(textArray.size()) % libraryStuff + amountOfVersions;
                 story.append(textArray.get(random));
                 story.append(" ");
