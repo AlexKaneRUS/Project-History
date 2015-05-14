@@ -22,8 +22,8 @@ public class StoryTeller implements Command {
     private Stack<String> stories = new SizedStack(15);
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
-    public void execute(String genre, String characterName) {
-        createCommand.execute(genre, characterName);
+    public void execute(String genre, String gender, String characterName) {
+        createCommand.execute(genre, gender, characterName);
         String story = createCommand.returnStory();
         thisStory = story;
         stories.push(story);
@@ -34,16 +34,15 @@ public class StoryTeller implements Command {
         if (stories.size() == 1) {
             String story = stories.peek();
             notifyObservers(story);
-        }
-        else {
+        } else {
             stories.pop();
             String story = stories.peek();
             notifyObservers(story);
         }
     }
 
-    public void save() throws IOException {
-        BufferedWriter saver = new BufferedWriter(new FileWriter("/home/alexkane/Desktop/Stories/ИсторияНомер" + numberOfStory));
+    public void save(String saveDirectory) throws IOException {
+        BufferedWriter saver = new BufferedWriter(new FileWriter(saveDirectory + "/Story" + numberOfStory));
         saver.write(thisStory);
         saver.close();
         numberOfStory++;

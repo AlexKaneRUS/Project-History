@@ -17,8 +17,8 @@ public class StoryController implements Controller {
     }
 
     @Override
-    public void getStory(String genre, String characterName) {
-        model.execute(genre, characterName);
+    public void getStory(String genre, String gender, String characterName) {
+        model.execute(genre, gender, characterName);
     }
 
     @Override
@@ -27,7 +27,9 @@ public class StoryController implements Controller {
     }
 
     @Override
-    public void save() throws IOException { model.save(); }
+    public void save(String saveDirectory) throws IOException {
+        model.save(saveDirectory);
+    }
 
     @Override
     public void clearTrash() {

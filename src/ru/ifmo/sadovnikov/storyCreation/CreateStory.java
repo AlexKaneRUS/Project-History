@@ -14,8 +14,8 @@ class CreateStory implements Command {
         this.storyCreator = storyCreator;
     }
 
-    public void execute(String genre, String characterName) {
-        story = storyCreator.getStory(genre, characterName);
+    public void execute(String genre, String gender, String characterName) {
+        story = storyCreator.getStory(genre, gender, characterName);
     }
 
     @Override
