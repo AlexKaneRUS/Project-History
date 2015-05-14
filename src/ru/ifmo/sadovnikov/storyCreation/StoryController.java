@@ -27,8 +27,8 @@ public class StoryController implements Controller {
     }
 
     @Override
-    public void save(String saveDirectory) throws IOException {
-        model.save(saveDirectory);
+    public void save(String saveDirectory, String fileName) throws IOException {
+        model.save(saveDirectory, fileName);
     }
 
     @Override

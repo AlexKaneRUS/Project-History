@@ -8,6 +8,6 @@ import java.io.IOException;
 public interface Controller {
     public void getStory(String genre, String gender, String characterName);
     public void undo();
-    public void save(String saveDirectory) throws IOException;
+    public void save(String saveDirectory, String fileName) throws IOException;
     public void clearTrash();
 }

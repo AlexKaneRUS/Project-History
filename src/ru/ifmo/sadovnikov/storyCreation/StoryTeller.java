@@ -41,8 +41,8 @@ public class StoryTeller implements Command {
         }
     }
 
-    public void save(String saveDirectory) throws IOException {
-        BufferedWriter saver = new BufferedWriter(new FileWriter(saveDirectory + "/Story" + numberOfStory));
+    public void save(String saveDirectory, String fileName) throws IOException {
+        BufferedWriter saver = new BufferedWriter(new FileWriter(saveDirectory + "/" + fileName));
         saver.write(thisStory);
         saver.close();
         numberOfStory++;

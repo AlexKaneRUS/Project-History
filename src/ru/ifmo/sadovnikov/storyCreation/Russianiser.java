@@ -21,8 +21,10 @@ public class Russianiser {
     public void Russianise() {
         if (im.endsWith("а") || im.endsWith("я")) {
             String stringEx = im.substring(0, im.length() - 1);
-            String consonant = stringEx.substring(im.length() - 1);
+            String consonant = stringEx.substring(im.length() - 2);
             if (im.endsWith("а")) {
+                System.out.println("1");
+                System.out.println(consonant);
                 if ((consonant.equals("щ")) || (consonant.equals("ш")) || (consonant.equals("ж")) || (consonant.equals("ч")) || (consonant.equals("г")) || (consonant.equals("к"))) {
                     rod = stringEx + "и";
                     dat = stringEx + "е";
@@ -31,7 +33,16 @@ public class Russianiser {
                     predl = stringEx + "е";
                 }
             } else if (im.endsWith("я")) {
+                System.out.println("1");
+                System.out.println(consonant);
                 if ((consonant.equals("т")) || (consonant.equals("н")) || (consonant.equals("д")) || (consonant.equals("м")) || (consonant.equals("л"))) {
+                    rod = stringEx + "и";
+                    dat = stringEx + "е";
+                    vin = stringEx + "ю";
+                    tvor = stringEx + "ей";
+                    predl = stringEx + "е";
+                }
+                if (consonant.equals("ь")) {
                     rod = stringEx + "и";
                     dat = stringEx + "е";
                     vin = stringEx + "ю";

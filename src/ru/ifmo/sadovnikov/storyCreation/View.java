@@ -93,6 +93,7 @@ public class View extends JFrame {
         private JPanel storyPanel;
         private JScrollPane scrollPane;
         private JFileChooser saver;
+        private JTextField fileNameField;
         private String gender;
         private String story = " ";
 
@@ -168,19 +169,28 @@ public class View extends JFrame {
                 saveScreen.add(savePanel);
 
                 JPanel buttonPanel = new JPanel();
-                buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+                buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+                JLabel fileNameLabel = new JLabel("Название Вашей истории: ");
+                fileNameField = new JTextField();
                 selectButton = new JButton("Выбрать");
                 selectButton.addActionListener(this);
-                buttonPanel.add(saveButton);
+                buttonPanel.add(fileNameLabel);
+                buttonPanel.add(Box.createHorizontalStrut(5));
+                buttonPanel.add(fileNameField);
+                buttonPanel.add(Box.createHorizontalStrut(15));
+                buttonPanel.add(selectButton);
                 buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 15, 15));
                 saveScreen.add(buttonPanel);
             } else if (e.getSource() == selectButton) {
-                if (saver.getSelectedFile() == null) {
-                    JOptionPane.showMessageDialog(saveScreen, "Вы не выбрали директорию");
+                String fileName = fileNameField.getText();
+                if (fileName == null) {
+                    JOptionPane.showMessageDialog(saveScreen, "Вы не назвали историю!");
+                } else if (saver.getSelectedFile() == null) {
+                    JOptionPane.showMessageDialog(saveScreen, "Вы не выбрали директорию!");
                 } else {
                     try {
                         saveScreen.dispatchEvent(new WindowEvent(saveScreen, WindowEvent.WINDOW_CLOSING));
-                        controller.save(saver.getSelectedFile().getAbsolutePath());
+                        controller.save(saver.getSelectedFile().getAbsolutePath(), fileName);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }

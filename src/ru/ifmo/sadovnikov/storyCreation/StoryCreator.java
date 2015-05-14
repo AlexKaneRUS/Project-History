@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by alexkane on 04.03.15.
  */
 class StoryCreator implements Creator {
-    public String getStory(String genre, String gender, String characterName){
+    public String getStory(String genre, String gender, String characterName) {
         String story = "";
         PartsCreator actionCreator;
         PartsCreator cliffHangerCreator;
@@ -36,9 +36,9 @@ class StoryCreator implements Creator {
         new1.Russianise();
         ArrayList<String> name = new1.getRussianisedName();
         story = expoCreator.createPart() + actionCreator.createPart() + cliffHangerCreator.createPart();
-        if (gender.equals("Мужской")){
+        if (gender.equals("Мужской")) {
             story = story.replaceAll("i[А-Яа-яё]*", "").replaceAll("j", "");
-        } else{
+        } else {
             story = story.replaceAll("[А-Яа-яё]*i", "").replaceAll("l", "");
         }
         story = story.replaceAll("Им", name.get(0)).replaceAll("Род", name.get(1)).replaceAll("Дат", name.get(2)).replaceAll("Вин", name.get(3)).replaceAll("Твор", name.get(4)).replaceAll("Предл", name.get(5));
