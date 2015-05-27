@@ -4,11 +4,9 @@ import ru.ifmo.sadovnikov.interfaces.Controller;
 import ru.ifmo.sadovnikov.interfaces.Observer;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
@@ -18,11 +16,6 @@ import java.io.IOException;
 public class View extends JFrame {
     private final Controller controller;
     private final StoryTeller model;
-    private String genre = "";
-    private String characterName = "";
-    private String story = "";
-    private JRadioButton genderM;
-    private JRadioButton genderW;
 
     public View(Controller controller, StoryTeller model) {
         this.controller = controller;
@@ -40,12 +33,12 @@ public class View extends JFrame {
 
         homePanel.add(new JLabel("Выберите жанр истории"));
         homePanel.add(Box.createVerticalStrut(10));
-        String[] genresList = {"Таинственная", "Хоррор"};
-        final JComboBox genres = new JComboBox(genresList);
+        String[] genresList = {"Таинственная", "Хоррор", "Смешная", "Детективная", "Прохладная"};
+        JComboBox genres = new JComboBox(genresList);
         homePanel.add(genres);
 
         homePanel.add(Box.createVerticalStrut(15));
-        homePanel.add(new JLabel("Выберите пол вашего героя"));
+        homePanel.add(new JLabel("Выберите пол Вашего героя"));
         JPanel genderPanel = new JPanel();
         genderPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         JRadioButton genderM = new JRadioButton("Мужской");
@@ -70,7 +63,7 @@ public class View extends JFrame {
         JPanel button = new JPanel();
         button.setLayout(new FlowLayout(FlowLayout.CENTER));
         JButton storyButton = new JButton("Расскажи историю");
-        storyButton.addActionListener(new TellStory(controller, model, genres.getSelectedItem().toString(), genderGroup, name));
+        storyButton.addActionListener(new TellStory(controller, model, genres, genderGroup, name));
         button.add(storyButton);
         homePanel.add(button);
         homePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -80,7 +73,7 @@ public class View extends JFrame {
     class TellStory implements ActionListener, Observer {
         private final Controller controller;
         private final StoryTeller model;
-        private final String genre;
+        private final JComboBox genres;
         private final ButtonGroup genderGroup;
         private final JTextField name;
         private JButton moreButton;
@@ -94,20 +87,18 @@ public class View extends JFrame {
         private JScrollPane scrollPane;
         private JFileChooser saver;
         private JTextField fileNameField;
-        private String gender;
         private String story = " ";
 
-        public TellStory(final Controller controller, final StoryTeller model, final String genre, final ButtonGroup genderGroup, final JTextField name) {
+        public TellStory(final Controller controller, final StoryTeller model, final JComboBox genres, final ButtonGroup genderGroup, final JTextField name) {
             this.controller = controller;
             this.model = model;
-            this.genre = genre;
+            this.genres = genres;
             this.genderGroup = genderGroup;
             this.name = name;
             this.model.registerObserver(this);
         }
 
         public void createStoryFrame(String story) {
-            gender = genderGroup.getSelection().getActionCommand();
             storyScreen = new JFrame("Таинственая история");
             storyScreen.setVisible(true);
             storyScreen.setSize(500, 500);
@@ -148,7 +139,9 @@ public class View extends JFrame {
         }
 
         public void actionPerformed(ActionEvent e) {
-            characterName = name.getText();
+            String gender = genderGroup.getSelection().getActionCommand();
+            String characterName = name.getText();
+            String genre = genres.getSelectedItem().toString();
             if (e.getSource() == moreButton) {
                 controller.getStory(genre, gender, characterName);
             } else if (e.getSource() == undoButton) {

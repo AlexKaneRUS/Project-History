@@ -18,7 +18,8 @@ public class StoryController implements Controller {
 
     @Override
     public void getStory(String genre, String gender, String characterName) {
-        model.execute(genre, gender, characterName);
+        model.setOptions(genre, gender, characterName);
+        model.execute();
     }
 
     @Override

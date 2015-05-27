@@ -38,7 +38,7 @@ class ThisPartCreator implements PartsCreator {
             while (i < numberOfLines) {
                 int random = randomNumber.nextInt(textArray.size()) % libraryStuff + amountOfVersions;
                 story = story + textArray.get(random) + " ";
-                amountOfVersions = amountOfVersions + 4;
+                amountOfVersions = amountOfVersions + libraryStuff;
                 i++;
             }
 

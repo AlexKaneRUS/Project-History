@@ -14,16 +14,19 @@ import java.util.Stack;
 /**
  * Created by alexkane on 3/15/15.
  */
-public class StoryTeller implements Command {
+public class StoryTeller {
     private final Creator thisCreator = new StoryCreator();
     private String thisStory = "";
-    private int numberOfStory = 1;
-    private final CreateStory createCommand = new CreateStory(thisCreator);
+    private CreateStory createCommand;
     private Stack<String> stories = new SizedStack(15);
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
-    public void execute(String genre, String gender, String characterName) {
-        createCommand.execute(genre, gender, characterName);
+    public void setOptions(String genre, String gender, String characterName) {
+        createCommand = new CreateStory(thisCreator, genre, gender, characterName);
+    }
+
+    public void execute() {
+        createCommand.execute();
         String story = createCommand.returnStory();
         thisStory = story;
         stories.push(story);
@@ -45,7 +48,6 @@ public class StoryTeller implements Command {
         BufferedWriter saver = new BufferedWriter(new FileWriter(saveDirectory + "/" + fileName));
         saver.write(thisStory);
         saver.close();
-        numberOfStory++;
     }
 
     public void clearTrash() {

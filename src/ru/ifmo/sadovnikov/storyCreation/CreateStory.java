@@ -8,19 +8,20 @@ import ru.ifmo.sadovnikov.interfaces.Creator;
  */
 class CreateStory implements Command {
     private Creator storyCreator;
+    private String genre;
+    private String gender;
+    private String characterName;
     private String story = null;
 
-    public CreateStory(final Creator storyCreator) {
+    public CreateStory(Creator storyCreator, String genre, String gender, String characterName) {
         this.storyCreator = storyCreator;
+        this.genre = genre;
+        this.gender = gender;
+        this.characterName = characterName;
     }
 
-    public void execute(String genre, String gender, String characterName) {
+    public void execute() {
         story = storyCreator.getStory(genre, gender, characterName);
-    }
-
-    @Override
-    public void undo() {
-
     }
 
     public String returnStory() {
